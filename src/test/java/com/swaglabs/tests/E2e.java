@@ -2,6 +2,7 @@ package com.swaglabs.tests;
 
 import com.swaglabs.driver.DriverManager;
 import com.swaglabs.listeners.TestNGListeners;
+import com.swaglabs.pages.CartPage;
 import com.swaglabs.pages.InventoryPage;
 import com.swaglabs.pages.LoginPage;
 import com.swaglabs.utils.jsonUtils;
@@ -29,13 +30,33 @@ public class E2e {
         new InventoryPage(DriverManager.getDriver())
                 .addProductToCart(testData.getJsonData("product-names.item-1.name"))
                 .addProductToCart(testData.getJsonData("product-names.item-2.name"))
-                .addProductToCart(testData.getJsonData("product-names.item-3.name"))
-                .addProductToCart(testData.getJsonData("product-names.item-4.name"))
-                .assertProductsAdded();
+                .assertProductsAdded(testData.getJsonData("product-names.item-2.name"));
+    }
+    @Test(dependsOnMethods = "addToCart")
+    public void checkProductsAddedToTheCart(){
+        new InventoryPage(DriverManager.getDriver())
+                .openCartPage()
+                .assertProductDetailsFromCart(testData.getJsonData("product-names.item-1.name"),testData.getJsonData("product-names.item-1.price"))
+                .assertProductDetailsFromCart(testData.getJsonData("product-names.item-2.name"),testData.getJsonData("product-names.item-2.price"));
+    }
+    @Test(dependsOnMethods = "checkProductsAddedToTheCart")
+    public void checkoutProcess(){
+        new CartPage(DriverManager.getDriver())
+                .openCheckoutPage()
+                .sendCustomerDetails(
+                         testData.getJsonData("checkout-data.first-name")
+                        ,testData.getJsonData("checkout-data.last-name")
+                        ,testData.getJsonData("checkout-data.zip-code"))
+                .validateCheckoutInformation(
+                         testData.getJsonData("checkout-data.first-name")
+                        ,testData.getJsonData("checkout-data.last-name")
+                        ,testData.getJsonData("checkout-data.zip-code")
+                ).clickContinue();
+                ;
     }
     // Configuration method to set up the test environment before each test method
     @BeforeClass
-    public void beforeSuite(){
+    public void beforeClass(){
         testData =new jsonUtils("test-data");
         String browserName =propertiesUtils.getPropertiesValue("browserType");
         DriverManager.createInstance(browserName);

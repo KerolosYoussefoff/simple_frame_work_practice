@@ -16,7 +16,7 @@ public class Waits {
 // present -> visible  -> clickable
 
 
-//    Wait for an element to be present
+// Wait for an element to be present
 
     @Step("Waiting for element to be present : {locator}")
 

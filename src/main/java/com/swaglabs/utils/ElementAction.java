@@ -35,11 +35,20 @@ public class ElementAction {
         return findElement(driver,locator).getText();
 
     }
+    // get the value of an element
+    @Step("Getting the value of the element : {locator}")
+    public static String getElementValue(WebDriver driver , By locator){
+        Waits.waitForElementToBeVisible(driver,locator);
+        Scrolling.scrollToWebElement(driver,locator);
+        LogsUtils.info("Getting element value :", locator.toString() , "Text : " , findElement(driver,locator).getDomProperty("value"));
+        return  findElement(driver,locator).getDomProperty("value");
+    }
     // find an element
     @Step("Finding the element : {locator}")
     public static WebElement findElement(WebDriver driver ,By locator){
          return driver.findElement(locator);
     }
+
 
 
 

@@ -28,33 +28,38 @@ public class TestNGListeners implements IInvokedMethodListener , ITestListener ,
     }
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-        if (method.isTestMethod()){
-            switch (testResult.getStatus())
-            {
-                case ITestResult.SUCCESS -> ScreenShotsUtils.takeScreenShot("Passed-"+testResult.getName());
-                case ITestResult.FAILURE -> ScreenShotsUtils.takeScreenShot("Failed-"+testResult.getName());
-                case ITestResult.SKIP    -> ScreenShotsUtils.takeScreenShot("Skipped-"+testResult.getName());
+        if (!method.isTestMethod()) {
+            return;
+        }
+        try {
+            CustomSoftAssertion.customSoftAssertAll();
+            if (method.isTestMethod()){
+                switch (testResult.getStatus())
+                {
+                    case ITestResult.SUCCESS -> ScreenShotsUtils.takeScreenShot("Passed-"+testResult.getName());
+                    case ITestResult.FAILURE -> ScreenShotsUtils.takeScreenShot("Failed-"+testResult.getName());
+                    case ITestResult.SKIP    -> ScreenShotsUtils.takeScreenShot("Skipped-"+testResult.getName());
+                }
+                AttachLogsToAllureReport();
             }
-            AttachLogsToAllureReport();
-    }
+        } catch (Exception e) {
+            testResult.setStatus(ITestResult.FAILURE);
+            testResult.setThrowable(e);
+        }
+//
     }
 
     public void onTestFailure(ITestResult tr) {
-        LogsUtils.info("Test case "+tr.getName()+" Failed");
-
+        LogsUtils.trace("Test case "+tr.getName()+" Failed");
 
     }
-
     @Override
     public void onTestSkipped(ITestResult tr) {
-        LogsUtils.info("Test case "+tr.getName()+" Skipped");
+        LogsUtils.trace("Test case "+tr.getName()+" Skipped");
 
     }
-
     @Override
     public void onTestSuccess(ITestResult tr) {
-        LogsUtils.info("Test case "+tr.getName()+" passed");
-
-
+        LogsUtils.trace("Test case "+tr.getName()+" passed");
     }
 }

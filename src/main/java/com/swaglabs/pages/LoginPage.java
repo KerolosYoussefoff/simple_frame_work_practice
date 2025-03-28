@@ -2,7 +2,6 @@ package com.swaglabs.pages;
 
 import com.swaglabs.utils.*;
 import io.qameta.allure.Step;
-import io.qameta.allure.util.PropertiesUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -39,7 +38,7 @@ public class LoginPage {
         ElementAction.sendData(driver,usernameField,username);
         return this;
     }
-    @Step("Enter password : {password}/.")
+    @Step("Enter password : {password}.")
     public LoginPage enterPassword(String password){
        ElementAction.sendData(driver,passwordField,password);
         return this;
@@ -57,12 +56,12 @@ public class LoginPage {
     //Validation
     @Step("Assert login page url.")
     public LoginPage assertLoginPageUrl(){
-        customSoftAssertion.softAssertion.assertEquals(BrowserActions.getCurrentURL(driver),homeUrl,"The url doesn't match");
+        CustomSoftAssertion.getInstance().assertEquals(BrowserActions.getCurrentURL(driver),homeUrl,"The url doesn't match");
         return this;
     }
     @Step("Assert login page title.")
     public LoginPage assertLginPageTitle(){
-        customSoftAssertion.softAssertion.assertEquals(BrowserActions.getWebPageTitle(driver),appTitle,"The Page title doesn't match ");
+        CustomSoftAssertion.getInstance().assertEquals(BrowserActions.getWebPageTitle(driver),appTitle,"The Page title doesn't match ");
         return this;
     }
     @Step("Assert successfull login soft.")
@@ -72,12 +71,12 @@ public class LoginPage {
     }
     @Step("Assert successful login.")
     public LoginPage assertSuccssfulLogin(){
-        customSoftAssertion.softAssertion.assertEquals(BrowserActions.getCurrentURL(driver),homeUrl);
+        CustomSoftAssertion.getInstance().assertEquals(BrowserActions.getCurrentURL(driver),homeUrl);
         return this;
     }
     @Step("Assert successful login .")
     public LoginPage assertunSuccessfulLogin(){
-        customSoftAssertion.softAssertion.assertEquals(getErrorMessage(),errorMSG,"Error message is not expected");
+        CustomSoftAssertion.getInstance().assertEquals(getErrorMessage(),errorMSG,"Error message is not expected");
         return this;
     }
 }
