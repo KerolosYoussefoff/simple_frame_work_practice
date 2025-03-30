@@ -33,5 +33,9 @@
     "first-name": "kerolos",
     "last-name": "youssef",
     "zip-code": "596321"
+  },
+  "checkout-final-data": {
+    "thank-you-msg": "Thank you for your order!"
   }
 }
+

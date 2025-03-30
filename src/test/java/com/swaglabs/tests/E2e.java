@@ -3,6 +3,7 @@ package com.swaglabs.tests;
 import com.swaglabs.driver.DriverManager;
 import com.swaglabs.listeners.TestNGListeners;
 import com.swaglabs.pages.CartPage;
+import com.swaglabs.pages.CheckoutPage;
 import com.swaglabs.pages.InventoryPage;
 import com.swaglabs.pages.LoginPage;
 import com.swaglabs.utils.jsonUtils;
@@ -51,8 +52,17 @@ public class E2e {
                          testData.getJsonData("checkout-data.first-name")
                         ,testData.getJsonData("checkout-data.last-name")
                         ,testData.getJsonData("checkout-data.zip-code")
-                ).clickContinue();
+                )
                 ;
+    }
+    @Test(dependsOnMethods = "checkoutProcess")
+    public void proceedCheckoutOverview(){
+        new CheckoutPage(DriverManager.getDriver())
+                .clickContinue()
+                .clickFinish()
+                .asserThankYouMsgAppeared(testData.getJsonData("checkout-final-data.thank-you-msg"))
+                .clickBackToHomeButton();
+
     }
     // Configuration method to set up the test environment before each test method
     @BeforeClass

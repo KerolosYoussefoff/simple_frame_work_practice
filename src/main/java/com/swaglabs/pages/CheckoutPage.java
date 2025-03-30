@@ -35,9 +35,10 @@ public class CheckoutPage {
         return this;
     }
     @Step("Clicking continue button" )
-    public void clickContinue(){
+    public CheckoutOverView clickContinue(){
         ElementAction.clickElement(driver,continueButton);
         LogsUtils.info("Clicking on continue button");
+        return new CheckoutOverView(driver);
     }
     // Validation
     @Step("Validate checkout information")
