@@ -19,9 +19,10 @@ public class CheckoutCompletePage {
     }
     // Actions
     @Step("clicking on the finish button ")
-    public void clickBackToHomeButton(){
+    public InventoryPage clickBackToHomeButton(){
         ElementAction.clickElement(driver, backToHomeButton);
         LogsUtils.info("Click finish button ");
+        return new InventoryPage(driver);
     }
     //
     @Step("assert the theank you message")

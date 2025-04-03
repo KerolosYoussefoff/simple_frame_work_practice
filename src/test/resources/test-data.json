@@ -1,8 +1,31 @@
-{
-  "login-credentials": {
-    "username": "standard_user",
-    "password": "secret_sauce"
-  },
+{"login-credentials": {
+  "users": {
+    "standardUser": {
+      "username": "standard_user",
+      "password": "secret_sauce"
+    },
+    "lockedOutUser": {
+      "username": "locked_out_user",
+      "password": "secret_sauce"
+    },
+    "problemUser": {
+      "username": "problem_user",
+      "password": "secret_sauce"
+    },
+    "performanceGlitchUser": {
+      "username": "performance_glitch_user",
+      "password": "secret_sauce"
+    },
+    "errorUser": {
+      "username": "error_user",
+      "password": "secret_sauce"
+    },
+    "visualUser": {
+      "username": "visual_user",
+      "password": "secret_sauce"
+    }
+  }
+},
   "product-names": {
     "item-1": {
       "name": "Sauce Labs Backpack",
@@ -30,12 +53,23 @@
     }
   },
   "checkout-data": {
-    "first-name": "kerolos",
-    "last-name": "youssef",
+    "first-name": "Test_First",
+    "last-name": "Test_Last",
     "zip-code": "596321"
   },
   "checkout-final-data": {
     "thank-you-msg": "Thank you for your order!"
+  },
+  "sort-options": {
+    "aToZ": "az",
+    "zToA": "za",
+    "lowToHigh": "lohi",
+    "highToLow": "hilo"
+  },
+  "locators": {
+    "sort-dropdown": {
+      "className": "product_sort_container"
+    }
   }
 }
 

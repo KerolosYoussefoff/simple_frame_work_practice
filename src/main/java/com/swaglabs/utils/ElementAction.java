@@ -4,6 +4,9 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class ElementAction {
     //private constructor to forbid instantiation
@@ -47,6 +50,37 @@ public class ElementAction {
     @Step("Finding the element : {locator}")
     public static WebElement findElement(WebDriver driver ,By locator){
          return driver.findElement(locator);
+    }
+    @Step("Selecting option by value from dropdown: {locator} with value: {value}")
+    public static void selectByValue(WebDriver driver, By locator, String value) {
+        Waits.waitForElementToBeVisible(driver, locator);
+        Scrolling.scrollToWebElement(driver, locator);
+        new Select(findElement(driver, locator)).selectByValue(value);
+        LogsUtils.info("Selected option by value: ", value, " from dropdown: ", locator.toString());
+    }
+
+    @Step("Selecting option by visible text from dropdown: {locator} with text: {text}")
+    public static void selectByVisibleText(WebDriver driver, By locator, String text) {
+        Waits.waitForElementToBeVisible(driver, locator);
+        Scrolling.scrollToWebElement(driver, locator);
+        new Select(findElement(driver, locator)).selectByVisibleText(text);
+        LogsUtils.info("Selected option by text: ", text, " from dropdown: ", locator.toString());
+    }
+
+    @Step("Selecting option by index from dropdown: {locator} with index: {index}")
+    public static void selectByIndex(WebDriver driver, By locator, int index) {
+        Waits.waitForElementToBeVisible(driver, locator);
+        Scrolling.scrollToWebElement(driver, locator);
+        new Select(findElement(driver, locator)).selectByIndex(index);
+        LogsUtils.info("Selected option by index: ", String.valueOf(index), " from dropdown: ", locator.toString());
+    }
+    // Add to ElementAction.java
+    @Step("Finding multiple elements: {locator}")
+    public static List<WebElement> findElements(WebDriver driver, By locator) {
+        Waits.waitForElementToBeVisible(driver, locator);
+        Scrolling.scrollToWebElement(driver, locator);
+        LogsUtils.info("Finding multiple elements with locator: ", locator.toString());
+        return driver.findElements(locator);
     }
 
 

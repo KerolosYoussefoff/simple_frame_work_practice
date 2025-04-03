@@ -6,6 +6,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import java.io.File;
 
+import static com.swaglabs.utils.TimeStampUtils.getTimestamp;
+
 public class ScreenShotsUtils {
     public static final String screenshotPath = "test-outputs/screenshots/";
 
@@ -15,7 +17,7 @@ public class ScreenShotsUtils {
     public static void  takeScreenShot(String screenshotName){
         try {
             File screenshot =((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.FILE);
-            File screenshorFile =new File(screenshotPath + screenshotName+".png");
+            File screenshorFile = new File(screenshotPath + screenshotName +"_"+getTimestamp()+".png;");
             FileUtils.copyFile(screenshot,screenshorFile);
             AllureUtils.AttachScreenshotToAllureReport(screenshotName,screenshorFile.getPath());
         }
