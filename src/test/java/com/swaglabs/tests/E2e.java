@@ -5,6 +5,7 @@ import com.swaglabs.pages.*;
 import org.testng.annotations.Test;
 
 import static com.swaglabs.utils.TimeStampUtils.getTimestamp;
+// to generate the allure report in single file  run this command in terminal "allure generate test-outputs/allure-results -o allure-report --single-file"
 
 public class E2e extends BaseClass {
 
