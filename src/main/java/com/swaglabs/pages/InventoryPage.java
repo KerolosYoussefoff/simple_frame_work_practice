@@ -76,16 +76,16 @@ public class InventoryPage {
 
     // validations
     @Step("Verify the product added to the cart")
-    public InventoryPage assertProductsAdded(String productName) {
+    public void assertProductsAdded(String productName) {
         By removeButton = RelativeLocator.with(By.tagName("button")).below(By.linkText(productName));
         String actualValue = ElementAction.getElementText(driver,removeButton);
         LogsUtils.info("Actual :" + actualValue);
         CustomSoftAssertion.getInstance().assertEquals(actualValue,"Remove","product is added to the cart ");
         LogsUtils.info(productName +" product is added to the cart.");
-        return this;
+
     }
     @Step("Verify product names sorted A-Z")
-    public InventoryPage verifyProductNamesSortedAToZ() {
+    public void verifyProductNamesSortedAToZ() {
         List<String> actualNames = getProductNames();
         List<String> expectedNames = new ArrayList<>(actualNames);
         Collections.sort(expectedNames);
@@ -98,12 +98,10 @@ public class InventoryPage {
                 expectedNames,
                 "Products not sorted A-Z correctly"
         );
-
-        return this;
     }
 
     @Step("Verify product names sorted Z-A")
-    public InventoryPage verifyProductNamesSortedZToA() {
+    public void verifyProductNamesSortedZToA() {
         List<String> actualNames = getProductNames();
         List<String> expectedNames = new ArrayList<>(actualNames);
         expectedNames.sort(Collections.reverseOrder());
@@ -115,11 +113,11 @@ public class InventoryPage {
                 expectedNames,
                 "Products not sorted Z-A correctly"
         );
-        return this;
+
     }
 
     @Step("Verify product prices sorted low-high")
-    public InventoryPage verifyProductPricesSortedLowToHigh() {
+    public void verifyProductPricesSortedLowToHigh() {
         List<Double> actualPrices = getProductPrices();
         List<Double> expectedPrices = new ArrayList<>(actualPrices);
         Collections.sort(expectedPrices);
@@ -135,11 +133,10 @@ public class InventoryPage {
                 expectedPrices,
                 "Products not sorted by price low-high correctly"
         );
-        return this;
     }
 
     @Step("Verify product prices sorted high-low")
-    public InventoryPage verifyProductPricesSortedHighToLow() {
+    public void verifyProductPricesSortedHighToLow() {
         List<Double> actualPrices = getProductPrices();
         List<Double> expectedPrices = new ArrayList<>(actualPrices);
         expectedPrices.sort(Collections.reverseOrder());
@@ -155,7 +152,6 @@ public class InventoryPage {
                 expectedPrices,
                 "Products not sorted by price high-low correctly"
         );
-        return this;
     }
 
 }

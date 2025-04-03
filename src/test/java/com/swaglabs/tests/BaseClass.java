@@ -12,8 +12,6 @@ import org.testng.annotations.*;
 
 import java.io.File;
 
-import static com.swaglabs.utils.TimeStampUtils.getTimestamp;
-
 @Listeners(TestNGListeners.class)
 public class BaseClass {
     protected jsonUtils testData;
