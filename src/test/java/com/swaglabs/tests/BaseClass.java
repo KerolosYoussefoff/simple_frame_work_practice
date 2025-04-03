@@ -17,7 +17,7 @@ public class BaseClass {
     protected jsonUtils testData;
     protected File allureResultFile = new File("test-outputs/allure-results");
 
-    @BeforeMethod
+    @BeforeClass
     public void setupClass() {
         // Initialize test data
         testData = new jsonUtils("test-data");
@@ -31,7 +31,7 @@ public class BaseClass {
         InventoryPage inventoryPage = new InventoryPage(DriverManager.getDriver());
     }
 
-    @AfterMethod
+    @AfterClass
     public void tearDownClass() {
         // Cleanup resources
         if (DriverManager.getDriver() != null) {

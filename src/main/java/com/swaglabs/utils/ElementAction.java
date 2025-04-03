@@ -53,8 +53,8 @@ public class ElementAction {
     }
     @Step("Selecting option by value from dropdown: {locator} with value: {value}")
     public static void selectByValue(WebDriver driver, By locator, String value) {
-        Waits.waitForElementToBeVisible(driver, locator);
         Scrolling.scrollToWebElement(driver, locator);
+        Waits.waitForElementToBeVisible(driver, locator);
         new Select(findElement(driver, locator)).selectByValue(value);
         LogsUtils.info("Selected option by value: ", value, " from dropdown: ", locator.toString());
     }

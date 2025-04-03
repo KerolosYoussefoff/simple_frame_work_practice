@@ -22,8 +22,6 @@ public class InventoryPage {
     private final By itemsNameLocator = By.className("inventory_item_name");
     private final By itemsPriceLocator = By.className("inventory_item_price");
 
-
-
     public InventoryPage(WebDriver driver) {
         this.driver = driver;
     }
