@@ -5,14 +5,14 @@ import com.swaglabs.pages.*;
 import org.testng.annotations.Test;
 
 import static com.swaglabs.utils.TimeStampUtils.getTimestamp;
-// to generate the allure report in single file  run this command in terminal "allure generate test-outputs/allure-results -o allure-report --single-file"
+// to generate the allure report in single file run this command in terminal "allure generate test-outputs/allure-results -o allure-report --single-file"
 
 public class E2e extends BaseClass {
 
     @Test
     public void successfullLogin() {
         new LoginPage(DriverManager.getDriver())
-                .enterUserName(testData.getJsonData("login-credentials.users.standardUser.username"))
+                .enterUserName(testData.getJsonData("login-credentials.users.errorUser.username"))
                 .enterPassword(testData.getJsonData("login-credentials.users.standardUser.password"))
                 .clickLogin()
                 .assertSuccessfulLoginSoft();
