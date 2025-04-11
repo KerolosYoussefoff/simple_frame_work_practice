@@ -15,7 +15,7 @@ public class propertiesUtils {
     private propertiesUtils(){
         super();
     }
-    public static Properties loadProperties() {
+    public static void loadProperties() {
         try{
         Properties properties = new Properties();
         Collection<File> propertiesFilesList;
@@ -30,11 +30,9 @@ public class propertiesUtils {
             System.getProperties().putAll(properties);
         });
         LogsUtils.info("Loading properties file data ");
-        return properties;
-    }
+        }
     catch (Exception e){
             LogsUtils.error("Failed to load Properties File data because: " ,e.getMessage()  );
-            return  null;
     }
 
     }

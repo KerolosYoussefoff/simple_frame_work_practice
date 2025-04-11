@@ -48,7 +48,7 @@ public class AllureUtils {
             throw new IOException("Allure not found at: " + allurePath);
         }
 
-        // 2. Generate report
+        // 2. Generate a report
         Process generate = new ProcessBuilder(
                 allurePath,
                 "generate",
@@ -63,7 +63,7 @@ public class AllureUtils {
             throw new RuntimeException("Report generation timed out");
         }
 
-        // 3. Serve report
+        // 3. Serve a report
         Process serve = new ProcessBuilder(
                 allurePath,
                 "serve",

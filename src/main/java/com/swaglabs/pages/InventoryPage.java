@@ -15,11 +15,12 @@ import java.util.stream.Collectors;
 public class InventoryPage {
     private final WebDriver driver;
 
-    private final By cartIcon    = By.className("shopping_cart_container");
-    private final By burgerMenu  = By.id("react-burger-menu-btn");
-    private final By logoutButton = By.xpath("//a[@data-test=\"logout-sidebar-link\"]");
-    private final By SORT_DROPDOWN = By.className("product_sort_container");
-    private final By itemsNameLocator = By.className("inventory_item_name");
+
+    private final By cartIcon          = By.className("shopping_cart_container");
+    private final By burgerMenu        = By.id("react-burger-menu-btn");
+    private final By logoutButton      = By.xpath("//a[@data-test=\"logout-sidebar-link\"]");
+    private final By SORT_DROPDOWN     = By.className("product_sort_container");
+    private final By itemsNameLocator  = By.className("inventory_item_name");
     private final By itemsPriceLocator = By.className("inventory_item_price");
 
     public InventoryPage(WebDriver driver) {
@@ -32,6 +33,7 @@ public class InventoryPage {
         return this;
     }
 
+
     @Step("Add the product '{productName}' to the cart")
     public InventoryPage addProductToCart(String productName) {
         By addToCartButton = RelativeLocator.with(By.tagName("button")).below(By.linkText(productName));
@@ -40,16 +42,56 @@ public class InventoryPage {
 
         return this;
     }
+    @Step("Get product name .")
+    private String getProductName(String productName){
+        By productNameRelativeLocation = By.xpath("//div[@data-test=\"inventory-item-name\" and contains(.,'" + productName + "')]");
+        String productNameGet = ElementAction.getElementText(driver,productNameRelativeLocation);
+        LogsUtils.info("The product Name :" +  productNameGet +"." );
+        return productNameGet ;
+    }
+
+    @Step("Get product Disc.")
+    private String getProductDisc(String productName){
+        By productDiscRelativeLocation = RelativeLocator.with(By.tagName("div")).
+                below(By.xpath("//div[@data-test=\"inventory-item-name\" and contains(.,'" + productName + "')]"));
+        String productDiscGet = ElementAction.getElementText(driver,productDiscRelativeLocation);
+        LogsUtils.info("The product disc :" +  productDiscGet +"." );
+        return  ElementAction.getElementText(driver, productDiscRelativeLocation);
+    }
+    @Step("Get product Price.")
+    private String getProductPrice(String productName){
+        By productPriceRelativeLocation = RelativeLocator.with(By.className("pricebar")).
+                below(By.xpath("//div[@data-test=\"inventory-item-name\" and contains(.,'" + productName + "')]"));
+        String productPriceGet = ElementAction.getElementText(driver, productPriceRelativeLocation).replaceAll("[^0-9.-]", "");
+        LogsUtils.info("The product Price :" + productPriceGet +"." );
+        return  productPriceGet ;
+    }
+    @Step("Get product '{productName}' details")
+    public productdetails getProductDetails(String productName) {
+        return new productdetails(
+                getProductName(productName),
+                getProductDisc(productName),
+                getProductPrice(productName)
+        );
+    }
+    @Step("Open product detail page for '{productName}' .")
+    public ProductDetailsPage openPDPForProduct(String productName){
+        By productNameRelativeLocation = By.xpath("//div[@data-test=\"inventory-item-name\" and contains(.,'" + productName + "')]");
+        ElementAction.clickElement(driver,productNameRelativeLocation);
+        LogsUtils.info("Opening product detail page for product :" + productName +"." );
+        return new ProductDetailsPage(driver);
+    }
+
+
     @Step("Open cart page.")
     public CartPage openCartPage(){
         ElementAction.clickElement(driver,cartIcon);
         return new CartPage(driver);
     }
     @Step ("Logout from the page")
-    public LoginPage clickOnLogoutButton(){
+    public void clickOnLogoutButton(){
         ElementAction.clickElement(driver,burgerMenu);
         ElementAction.clickElement(driver,logoutButton);
-        return new LoginPage(driver);
     }
     @Step("sorting products")
     public InventoryPage sortProducts(String value) {
@@ -150,6 +192,11 @@ public class InventoryPage {
                 expectedPrices,
                 "Products not sorted by price high-low correctly"
         );
+
+    }
+
+    // Data holder class for product details
+        public record productdetails(String name, String description, String price) {
     }
 
 }

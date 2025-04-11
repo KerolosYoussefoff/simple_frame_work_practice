@@ -42,7 +42,7 @@ public class CheckoutPage {
     }
     // Validation
     @Step("Validate checkout information")
-    public CheckoutPage validateCheckoutInformation(String expectedFirstName, String expectedLastName, String expectedZipCode) {
+    public void validateCheckoutInformation(String expectedFirstName, String expectedLastName, String expectedZipCode) {
         String actualFirstName = ElementAction.getElementValue(driver,firstNameLocator);
         String actualLastName = ElementAction.getElementValue(driver,lastNameLocator);
         String actualZipCode = ElementAction.getElementValue(driver,zipCodeLocator);
@@ -60,7 +60,6 @@ public class CheckoutPage {
                 "Zip code doesn't match. Expected: " + expectedZipCode + " but found: " + actualZipCode
         );
 
-        return this;
     }
 
 }

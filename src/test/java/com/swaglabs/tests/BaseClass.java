@@ -12,8 +12,6 @@ import org.testng.annotations.*;
 
 import java.io.File;
 
-import java.util.concurrent.TimeUnit;
-
 @Listeners(TestNGListeners.class)
 public class BaseClass {
     protected jsonUtils testData;
@@ -41,12 +39,13 @@ public class BaseClass {
             LogsUtils.info("Driver is quited ");
         }
     }
-    @AfterSuite(alwaysRun = true)
+    @AfterSuite
     public static void generateAndServeReport() throws Exception {
         AllureUtils.generateAndServeReport(
                 "D:\\allure-2.33.0\\bin\\allure.bat",
                 "test-outputs/allure-results",
                 "allure-report"
         );
+
     }
 }

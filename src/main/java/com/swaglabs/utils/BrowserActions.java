@@ -3,8 +3,6 @@ package com.swaglabs.utils;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
-import java.net.URL;
-
 public class BrowserActions {
     //private constructor to forbid instantiation
     private void browserActions(){
